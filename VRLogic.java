@@ -3,14 +3,17 @@ import java.util.Date;
 import java.util.List;
 
 public class VRLogic {
-	private final ConsoleUI consoleUI = new ConsoleUI();
+	private IUserInterface ui = null;
 
 	private List<Customer> customers = new ArrayList<Customer>() ;
 
 	private List<Video> videos = new ArrayList<Video>() ;
 
+	public VRLogic(IUserInterface ui) {
+		this.ui = ui;
+	}
 	public static void main(String[] args) {
-		VRLogic logic = new VRLogic() ;
+		VRLogic logic = new VRLogic(new ConsoleUI()) ;
 
 		boolean quit = false ;
 		while ( ! quit ) {
@@ -33,26 +36,26 @@ public class VRLogic {
 	}
 
 	public void clearRentals() {
-		String customerName = consoleUI.getCustomerName();
+		String customerName = ui.getCustomerName();
 
 		Customer foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
 		} else {
-			consoleUI.printRentals(foundCustomer);
+			ui.printRentals(foundCustomer);
 
 			foundCustomer.clearRentals();
 		}
 	}
 
 	public void returnVideo() {
-		String customerName = consoleUI.getCustomerName();
+		String customerName = ui.getCustomerName();
 
 		Customer foundCustomer = findCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
-		String videoTitle = consoleUI.getVideoTitle();
+		String videoTitle = ui.getVideoTitle();
 
 		foundCustomer.returnVideo(videoTitle);
 	}
@@ -76,15 +79,15 @@ public class VRLogic {
 	}
 
 	public void listVideos() {
-		consoleUI.listVideos(videos);
+		ui.printVideos(videos);
 	}
 
 	public void listCustomers() {
-		consoleUI.listCustomer(customers);
+		ui.printCustomer(customers);
 	}
 
 	public void getCustomerReport() {
-		String customerName = consoleUI.getCustomerName();
+		String customerName = ui.getCustomerName();
 
 		Customer foundCustomer = findCustomer(customerName);
 
@@ -97,13 +100,13 @@ public class VRLogic {
 	}
 
 	public void rentVideo() {
-		String customerName = consoleUI.getCustomerName();
+		String customerName = ui.getCustomerName();
 
 		Customer foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) return ;
 
-		String videoTitle = consoleUI.getVideoTitleToRent();
+		String videoTitle = ui.getVideoTitleToRent();
 
 		Video foundVideo = findVideo(videoTitle);
 
@@ -138,15 +141,15 @@ public class VRLogic {
 	}
 
 	public void registerCustomer() {
-		String name = consoleUI.getCustomerName();
+		String name = ui.getCustomerName();
 		Customer customer = new Customer(name) ;
 		customers.add(customer) ;
 	}
 
 	public void registerVideo() {
-		String title = consoleUI.getTitle();
-		int videoType = consoleUI.getVideoType();
-		int priceCode = consoleUI.getPriceCode();
+		String title = ui.getTitle();
+		int videoType = ui.getVideoType();
+		int priceCode = ui.getPriceCode();
 
 		Date registeredDate = new Date();
 		Video video = new Video(title, videoType, priceCode, registeredDate) ;
@@ -154,7 +157,7 @@ public class VRLogic {
 	}
 
 	public int showCommand() {
-		return consoleUI.showCommand();
+		return ui.showCommand();
 	}
 }
 
