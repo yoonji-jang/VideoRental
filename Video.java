@@ -23,13 +23,12 @@ public class Video {
 	}
 
 	public int getLateReturnPointPenalty() {
-		int pentalty = 0 ;
-		switch ( videoType ) {
-			case VHS: pentalty = 1 ; break ;
-			case CD: pentalty = 2 ; break ;
-			case DVD: pentalty = 3 ; break ;
-		}
-		return pentalty ;
+		return switch (videoType) {
+			case VHS -> 1;
+			case CD -> 2;
+			case DVD -> 3;
+			default -> 0;
+		};
 	}
 	public int getPriceCode() {
 		return priceCode;
