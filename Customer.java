@@ -45,7 +45,7 @@ public class Customer {
 			double eachCharge = getEachCharge(each, daysRented);
 			int eachPoint = getEachPoint(each, daysRented);
 
-			result += AddEachResult(each, eachCharge, eachPoint, daysßRented);
+			result += AddEachResult(each, eachCharge, eachPoint, daysRented);
 
 			totalCharge += eachCharge;
 			totalPoint += eachPoint;
@@ -79,7 +79,7 @@ public class Customer {
 	}
 
 	private String AddEachResult(Rental each, double eachCharge, int eachPoint, int daysRented) {
-		string result = "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
+		String result = "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
 				+ "\tPoint: " + eachPoint + "\n";
 		return result;
 	}
@@ -111,6 +111,6 @@ public class Customer {
 	}
 
 	private int calcDaysRented(long diff) {
-		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;;
+		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
 	}
 }
