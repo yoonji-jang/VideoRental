@@ -55,14 +55,11 @@ public class Rental {
 		daysRented = getDaysRented();
 		if ( daysRented <= 2) return limit ;
 
-		switch ( video.getVideoType() ) {
-			case Video.VHS: limit = 5 ;
-			break ;
-			case Video.CD: limit = 3 ; break ;
-			case Video.DVD: limit = 2 ; break ;
-		}
+		limit = video.getVideoLimit();
 		return limit ;
 	}
+
+
 
 	public int getDaysRented() {
 		int daysRented;
