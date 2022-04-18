@@ -79,4 +79,36 @@ public class Rental {
 	private int calcDaysRented(long diff) {
 		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;
 	}
+
+	public double getCharge() {
+		double charge = 0;
+		switch (getVideo().getPriceCode()) {
+			case Video.REGULAR:
+				charge += 2;
+				if (getDaysRented() > 2)
+					charge += (getDaysRented() - 2) * 1.5;
+				break;
+			case Video.NEW_RELEASE:
+				charge = getDaysRented() * 3;
+				break;
+		}
+		return charge;
+	}
+
+	public int getPoint(Rental each) {
+		int point = 1;
+
+		if ((getVideo().getPriceCode() == Video.NEW_RELEASE) )
+			point++;
+
+		if ( getDaysRented() > getDaysRentedLimit() )
+			point -= Math.min(point, getVideo().getLateReturnPointPenalty()) ;
+		return point;
+	}
+
+	public String getReport() {
+		String result = "\t" + getVideo().getTitle() + "\tDays rented: " + getDaysRented() + "\tCharge: " + getChange()
+				+ "\tPoint: " + getPoint() + "\n";
+		return result;
+	}
 }
