@@ -17,8 +17,7 @@ public class VRUI {
 		while ( ! quit ) {
 			int command = ui.showCommand() ;
 			switch ( command ) {
-				case 0: quit = true ;
-				break ;
+				case 0: quit = true ; break ;
 				case 1: ui.listCustomers() ; break ;
 				case 2: ui.listVideos() ; break ;
 				case 3: ui.register("customer") ; break ;
