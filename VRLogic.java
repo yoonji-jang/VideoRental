@@ -35,7 +35,7 @@ public class VRLogic {
 	public void clearRentals() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = foundCustomer(customerName);
+		Customer foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -50,7 +50,7 @@ public class VRLogic {
 	public void returnVideo() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = foundCustomer(customerName);
+		Customer foundCustomer = findCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
 		String videoTitle = consoleUI.getVideoTitle();
@@ -94,7 +94,7 @@ public class VRLogic {
 	public void getCustomerReport() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = foundCustomer(customerName);
+		Customer foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -107,12 +107,23 @@ public class VRLogic {
 	public void rentVideo() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = foundCustomer(customerName);
+		Customer foundCustomer = findCustomer(customerName);
 
 		if ( foundCustomer == null ) return ;
 
 		String videoTitle = consoleUI.getVideoTitleToRent();
 
+		Video foundVideo = findVideo(videoTitle);
+
+		if ( foundVideo == null ) return ;
+
+		Rental rental = new Rental(foundVideo) ;
+		foundVideo.setRented(true);
+
+		foundCustomer.addRental(rental);
+	}
+
+	private Video findVideo(String videoTitle) {
 		Video foundVideo = null ;
 		for ( Video video: videos ) {
 			if ( video.getTitle().equals(videoTitle) && video.isRented() == false ) {
@@ -120,18 +131,10 @@ public class VRLogic {
 				break ;
 			}
 		}
-
-		if ( foundVideo == null ) return ;
-
-		Rental rental = new Rental(foundVideo) ;
-		foundVideo.setRented(true);
-
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		customerRentals.add(rental);
-		foundCustomer.setRentals(customerRentals);
+		return foundVideo;
 	}
 
-	private Customer foundCustomer(String customerName) {
+	private Customer findCustomer(String customerName) {
 		Customer foundCustomer = null ;
 		for ( Customer customer: customers ) {
 			if ( customer.getName().equals(customerName)) {
