@@ -41,11 +41,10 @@ public class Customer {
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
-			int daysRented = each.getDaysRented();
-			double eachCharge = getEachCharge(each, daysRented);
-			int eachPoint = getEachPoint(each, daysRented);
+			double eachCharge = each.getCharge();
+			int eachPoint = each.getPoint();
 
-			result += AddEachResult(each, eachCharge, eachPoint, daysRented);
+			result += each.getReport();
 
 			totalCharge += eachCharge;
 			totalPoint += eachPoint;
@@ -66,35 +65,4 @@ public class Customer {
 		}
 	}
 
-	private String AddEachResult(Rental each, double eachCharge, int eachPoint, int daysRented) {
-		String result = "\t" + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
-				+ "\tPoint: " + eachPoint + "\n";
-		return result;
-	}
-
-	private int getEachPoint(Rental each, int daysRented) {
-		int eachPoint = 1;
-
-		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE) )
-			eachPoint++;
-
-		if ( daysRented > each.getDaysRentedLimit() )
-			eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty()) ;
-		return eachPoint;
-	}
-
-	private double getEachCharge(Rental each, int daysRented) {
-		double eachCharge = 0;
-		switch (each.getVideo().getPriceCode()) {
-		case Video.REGULAR:
-			eachCharge += 2;
-			if (daysRented > 2)
-				eachCharge += (daysRented - 2) * 1.5;
-			break;
-		case Video.NEW_RELEASE:
-			eachCharge = daysRented * 3;
-			break;
-		}
-		return eachCharge;
-	}
 }
