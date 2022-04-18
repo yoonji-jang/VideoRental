@@ -92,7 +92,7 @@ public class Rental {
 		return charge;
 	}
 
-	public int getPoint(Rental each) {
+	public int getPoint() {
 		int point = 1;
 
 		if ((getVideo().getPriceCode() == Video.NEW_RELEASE) )
@@ -104,7 +104,7 @@ public class Rental {
 	}
 
 	public String getReport() {
-		String result = "\t" + getVideo().getTitle() + "\tDays rented: " + getDaysRented() + "\tCharge: " + getChange()
+		String result = "\t" + getVideo().getTitle() + "\tDays rented: " + getDaysRented() + "\tCharge: " + getCharge()
 				+ "\tPoint: " + getPoint() + "\n";
 		return result;
 	}
