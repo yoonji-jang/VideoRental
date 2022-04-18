@@ -47,10 +47,10 @@ public class Customer {
 
 			if (each.getStatus() == 1) { // returned Video
 				long diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+				daysRented = getDaysRented(daysRented, diff);
 			} else { // not yet returned
 				long diff = new Date().getTime() - each.getRentDate().getTime();
-				daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+				daysRented = getDaysRented(daysRented, diff);
 			}
 
 			switch (each.getVideo().getPriceCode()) {
@@ -90,5 +90,11 @@ public class Customer {
 			System.out.println("Congrat! You earned two free coupon");
 		}
 		return result ;
+	}
+
+	private int getDaysRented(int daysRented, long diff) {
+		int daysRented;
+		daysRented = (int) (diff / (1000 * 60 * 60 * 24)) + 1;
+		return daysRented;
 	}
 }
