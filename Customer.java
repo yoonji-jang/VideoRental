@@ -53,16 +53,7 @@ public class Customer {
 				daysRented = getDaysRented(daysRented, diff);
 			}
 
-			switch (each.getVideo().getPriceCode()) {
-			case Video.REGULAR:
-				eachCharge += 2;
-				if (daysRented > 2)
-					eachCharge += (daysRented - 2) * 1.5;
-				break;
-			case Video.NEW_RELEASE:
-				eachCharge = daysRented * 3;
-				break;
-			}
+			eachCharge = getEachCharge(each, eachCharge, daysRented);
 
 			eachPoint++;
 
@@ -90,6 +81,20 @@ public class Customer {
 			System.out.println("Congrat! You earned two free coupon");
 		}
 		return result ;
+	}
+
+	private double getEachCharge(Rental each, double eachCharge, int daysRented) {
+		switch (each.getVideo().getPriceCode()) {
+		case Video.REGULAR:
+			eachCharge += 2;
+			if (daysRented > 2)
+				eachCharge += (daysRented - 2) * 1.5;
+			break;
+		case Video.NEW_RELEASE:
+			eachCharge = daysRented * 3;
+			break;
+		}
+		return eachCharge;
 	}
 
 	private int getDaysRented(int daysRented, long diff) {
