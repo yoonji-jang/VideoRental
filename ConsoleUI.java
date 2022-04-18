@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleUI {
@@ -61,5 +62,28 @@ public class ConsoleUI {
             System.out.print("\tTitle: " + rental.getVideo().getTitle() + " ") ;
             System.out.print("\tPrice Code: " + rental.getVideo().getPriceCode()) ;
         }
+    }
+
+    void listCustomer(List<Customer> customerList) {
+        System.out.println("List of customers");
+        for ( Customer customer: customerList) {
+            printRentals(customer);
+        }
+        System.out.println("End of list");
+    }
+
+    void listVideos(List<Video> videoList) {
+        System.out.println("List of videos");
+
+        for ( Video video: videoList) {
+            System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
+        }
+        System.out.println("End of list");
+    }
+
+    String getVideoTitle() {
+        System.out.println("Enter video title to return: ") ;
+        String videoTitle = scanner.next() ;
+        return videoTitle;
     }
 }

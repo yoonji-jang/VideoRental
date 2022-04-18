@@ -65,8 +65,7 @@ public class VRUI {
 		}
 		if ( foundCustomer == null ) return ;
 
-		System.out.println("Enter video title to return: ") ;
-		String videoTitle = ConsoleUI.scanner.next() ;
+		String videoTitle = consoleUI.getVideoTitle();
 
 		List<Rental> customerRentals = foundCustomer.getRentals() ;
 		for ( Rental rental: customerRentals ) {
@@ -97,20 +96,11 @@ public class VRUI {
 	}
 
 	public void listVideos() {
-		System.out.println("List of videos");
-
-		for ( Video video: videos ) {
-			System.out.println("Price code: " + video.getPriceCode() +"\tTitle: " + video.getTitle()) ;
-		}
-		System.out.println("End of list");
+		consoleUI.listVideos(videos);
 	}
 
 	public void listCustomers() {
-		System.out.println("List of customers");
-		for ( Customer customer: customers ) {
-			consoleUI.printRentals(customer);
-		}
-		System.out.println("End of list");
+		consoleUI.listCustomer(customers);
 	}
 
 	public void getCustomerReport() {
