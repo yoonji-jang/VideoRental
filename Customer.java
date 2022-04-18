@@ -41,18 +41,17 @@ public class Customer {
 		int totalPoint = 0;
 
 		for (Rental each : rentals) {
-			int daysRented = calcDaysRented(each);
+			int daysRented = getDaysRented(each);
 			double eachCharge = getEachCharge(each, daysRented);
 			int eachPoint = getEachPoint(each, daysRented);
 
-			result += AddEachResult(each, eachCharge, eachPoint, daysRented);
+			result += AddEachResult(each, eachCharge, eachPoint, daysßRented);
 
 			totalCharge += eachCharge;
 			totalPoint += eachPoint;
 		}
 
 		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
-
 
 		printCouponBonus(totalPoint);
 		return result ;
@@ -67,14 +66,14 @@ public class Customer {
 		}
 	}
 
-	private int calcDaysRented(Rental each) {
+	private int getDaysRented(Rental each) {
 		int daysRented = 0;
 		if (each.getStatus() == 1) { // returned Video
 			long diff = each.getReturnDate().getTime() - each.getRentDate().getTime();
-			daysRented = calcDaysRented(daysRented, diff);
+			daysRented = calcDaysRented(diff);
 		} else { // not yet returned
 			long diff = new Date().getTime() - each.getRentDate().getTime();
-			daysRented = calcDaysRented(daysRented, diff);
+			daysRented = calcDaysRented(diff);
 		}
 		return daysRented;
 	}
@@ -111,7 +110,7 @@ public class Customer {
 		return eachCharge;
 	}
 
-	private int calcDaysRented(int daysRented, long diff) {
+	private int calcDaysRented(long diff) {
 		return (int) (diff / (1000 * 60 * 60 * 24)) + 1;;
 	}
 }
