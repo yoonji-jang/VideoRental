@@ -42,8 +42,7 @@ public class VRLogic {
 		} else {
 			consoleUI.printRentals(foundCustomer);
 
-			List<Rental> rentals = new ArrayList<Rental>() ;
-			foundCustomer.setRentals(rentals);
+			foundCustomer.clearRentals();
 		}
 	}
 
@@ -55,14 +54,7 @@ public class VRLogic {
 
 		String videoTitle = consoleUI.getVideoTitle();
 
-		List<Rental> customerRentals = foundCustomer.getRentals() ;
-		for ( Rental rental: customerRentals ) {
-			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
-				rental.returnVideo();
-				rental.getVideo().setRented(false);
-				break ;
-			}
-		}
+		foundCustomer.returnVideo(videoTitle);
 	}
 
 	private void init() {

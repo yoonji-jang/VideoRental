@@ -31,6 +31,7 @@ public class Rental {
 		if ( status == RENTED ) {
 			this.status = RETURNED;
 			returnDate = new Date() ;
+			getVideo().setRented(false);
 		}
 	}
 	public Date getRentDate() {

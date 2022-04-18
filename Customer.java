@@ -22,8 +22,8 @@ public class Customer {
 		return rentals;
 	}
 
-	public void setRentals(List<Rental> rentals) {
-		this.rentals = rentals;
+	void clearRentals() {
+		rentals = new ArrayList<Rental>();
 	}
 
 	public void addRental(Rental rental) {
@@ -51,17 +51,21 @@ public class Customer {
 
 		result += "Total charge: " + totalCharge + "\tTotal Point:" + totalPoint + "\n";
 
-		printCouponBonus(totalPoint);
+		if ( totalPoint >= 10 ) {
+			result += "Congrat! You earned one free coupon";
+		}
+		else if ( totalPoint >= 30 ) {
+			result += "Congrat! You earned two free coupon";
+		}
 		return result ;
 	}
 
-	private void printCouponBonus(int totalPoint) {
-		if ( totalPoint >= 10 ) {
-			System.out.println("Congrat! You earned one free coupon");
-		}
-		else if ( totalPoint >= 30 ) {
-			System.out.println("Congrat! You earned two free coupon");
+	void returnVideo(String videoTitle) {
+		for ( Rental rental: this.rentals ) {
+			if ( rental.getVideo().getTitle().equals(videoTitle) && rental.getVideo().isRented() ) {
+				rental.returnVideo();
+				break ;
+			}
 		}
 	}
-
 }
