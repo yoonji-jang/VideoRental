@@ -35,13 +35,7 @@ public class VRLogic {
 	public void clearRentals() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = foundCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -56,13 +50,7 @@ public class VRLogic {
 	public void returnVideo() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = foundCustomer(customerName);
 		if ( foundCustomer == null ) return ;
 
 		String videoTitle = consoleUI.getVideoTitle();
@@ -106,13 +94,7 @@ public class VRLogic {
 	public void getCustomerReport() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = foundCustomer(customerName);
 
 		if ( foundCustomer == null ) {
 			System.out.println("No customer found") ;
@@ -125,13 +107,7 @@ public class VRLogic {
 	public void rentVideo() {
 		String customerName = consoleUI.getCustomerName();
 
-		Customer foundCustomer = null ;
-		for ( Customer customer: customers ) {
-			if ( customer.getName().equals(customerName)) {
-				foundCustomer = customer ;
-				break ;
-			}
-		}
+		Customer foundCustomer = foundCustomer(customerName);
 
 		if ( foundCustomer == null ) return ;
 
@@ -153,6 +129,17 @@ public class VRLogic {
 		List<Rental> customerRentals = foundCustomer.getRentals() ;
 		customerRentals.add(rental);
 		foundCustomer.setRentals(customerRentals);
+	}
+
+	private Customer foundCustomer(String customerName) {
+		Customer foundCustomer = null ;
+		for ( Customer customer: customers ) {
+			if ( customer.getName().equals(customerName)) {
+				foundCustomer = customer ;
+				break ;
+			}
+		}
+		return foundCustomer;
 	}
 
 	public void registerCustomer() {
